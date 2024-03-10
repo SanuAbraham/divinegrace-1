@@ -7,6 +7,9 @@ import productRouter from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js"
 
 dotenv.config();
+
+console.log(process.env.MONGODB_URI)
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
