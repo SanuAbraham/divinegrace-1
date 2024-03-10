@@ -34,12 +34,17 @@ const HomeScreen = () => {
 
   const userInfo = getUserInfo();
 
+  function sortProductsByOrder(products) {
+    return products.sort((a, b) => a.order - b.order);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({type: 'FETCH_REQUEST'})
       try {
         const result = await axios.get('/api/products')
-        dispatch({type: 'FETCH_SUCCESS', payload: result.data})
+        const sortedProducts = sortProductsByOrder(result.data.slice());
+        dispatch({type: 'FETCH_SUCCESS', payload: sortedProducts})
       } catch (err) {
         dispatch({type: 'FETCH_FAIL', payload: err.message })
       }

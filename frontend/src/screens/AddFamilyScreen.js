@@ -44,6 +44,12 @@ const AddFamilyScreen = () => {
         }
     }
     
+    const [selectedGender, setSelectedGender] = useState('');
+
+    const handleGenderChange = (event) => {
+        setSelectedGender(event.target.value);
+    };
+
     return (
         
             <Container className="small-container">
@@ -54,7 +60,7 @@ const AddFamilyScreen = () => {
                 <Form onSubmit={submitHandler}>
                     <Form.Group className="mb-3" controlId="name">
                         <Form.Label>Full Name</Form.Label>
-                        <Form.Control type="name" required onChange={(e) => setName(e.target.value)}/>
+                        <Form.Control type="text" required onChange={(e) => setName(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="email">
                         <Form.Label>Email</Form.Label>
@@ -62,24 +68,31 @@ const AddFamilyScreen = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="phone">
                         <Form.Label>Phone</Form.Label>
-                        <Form.Control type="phone" required onChange={(e) => setPhone(e.target.value)}/>
+                        <Form.Control type="tel" required onChange={(e) => setPhone(e.target.value)}/>
                     </Form.Group>                    
-                    <Form.Group className="mb-3" controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" required onChange={(e) => setPassword(e.target.value)}/>
+                    <Form.Group className="mb-3" controlId="age">
+                        <Form.Label>Age</Form.Label>
+                        <Form.Control type="text" required onChange={(e) => setAge(e.target.value)}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="confirmPassword">
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" required onChange={(e) => setConfirmPassword(e.target.value)}/>
+                    <Form.Group className="mb-3" controlId="gender">
+                        <Form.Label>Gender</Form.Label>
+                        <Form.Control
+                            as="select"
+                            value={selectedGender}
+                            onChange={handleGenderChange}
+                            >
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            </Form.Control>
+                        </Form.Group>
+                    <Form.Group className="mb-3" controlId="relationship">
+                        <Form.Label>Relationship</Form.Label>
+                        <Form.Control type="text" required onChange={(e) => setRelationship(e.target.value)}/>
                     </Form.Group>
 
                     <div className="mb-3">
-                        <Button type="submit">Sign Up</Button>
+                        <Button type="submit">Add Family Member</Button>
                     </div>
-                    <div className="mb-3">
-                        <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
-                    </div>
-
                 </Form>
             </Container>
 

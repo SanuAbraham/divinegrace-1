@@ -8,27 +8,37 @@ import RetreatRegistration from "../models/retreatRegistration.js";
 const retreatRegistrationRouter = express.Router();
 
 retreatRegistrationRouter.post('/retreatRegistration', async (req, res) => {
-    try {
-      const { userId, ...retreatRegistrationData } = req.body;
-      
-      // Check if the user exists
-      const user = await User.findById(userId);
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-  
-      // Create a retreatRegistration associated with the user and family members
-      const retreatRegistration = new RetreatRegistration({
-        ...retreatRegistrationData,
-        user: userId,
-      });
-  
-      const savedretreatRegistration = await retreatRegistration.save();
-      res.json(savedretreatRegistration);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+  try {
+    const { userId, ...retreatRegistrationData } = req.body;
+    const user = await User.findById(userId);
+    res.json(user);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
-  });
+    const retreatRegistration = new RetreatRegistration({
+      ...retreatRegistrationData,
+      user: userId,
+    });
+
+    const savedretreatRegistration = await retreatRegistration.save();
+    const familyMemberData = {
+      name:user.name,
+      email: user.email,
+      phone: user.phone,
+      age: user.age,
+      gender: user.gender,
+      relationship: "Self"
+    }
+    const familyMember = new Family({
+      ...familyMemberData,
+      retreatRegistration: savedretreatRegistration._id,
+    });
+    const savedFamilyMember = await familyMember.save();
+    res.json(savedretreatRegistration);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
   // Get all retreatRegistration for a specific user
   retreatRegistrationRouter.get('/retreatRegistration', async (req, res) => {

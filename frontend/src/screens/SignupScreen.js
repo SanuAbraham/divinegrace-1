@@ -20,6 +20,7 @@ const SignupScreen = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');    
+    const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -37,6 +38,7 @@ const SignupScreen = () => {
                 name,
                 phone,
                 email,
+                gender,
                 password
             })
             ctxDispatch({type: 'USER_SIGNIN', payload: data})
@@ -72,6 +74,10 @@ const SignupScreen = () => {
                     <Form.Group className="mb-3" controlId="phone">
                         <Form.Label>Phone</Form.Label>
                         <Form.Control type="phone" required onChange={(e) => setPhone(e.target.value)}/>
+                    </Form.Group>                    
+                    <Form.Group className="mb-3" controlId="gender">
+                        <Form.Label>Gender</Form.Label>
+                        <Form.Control type="gender" required onChange={(e) => setGender(e.target.value)}/>
                     </Form.Group>                    
                     <Form.Group className="mb-3" controlId="password">
                         <Form.Label>Password</Form.Label>

@@ -14,6 +14,9 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils'
 import { Store } from '../Store'
 import { getUserInfo } from '../utils'
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom'
+
 const reducer = (state, action) => {
     switch(action.type) {
       case 'FETCH_REQUEST':
@@ -59,10 +62,18 @@ const ProductScreen = () => {
     const {state, dispatch: ctxDispatch} = useContext(Store);
     const { cart } = state;
     
-    const RegisterMe = () => {
-        console.log('register me');
+    const RegisterMe = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.post('/api/retreat/retreatRegistration', {
+                userId: userInfo._id,
+                product: product._id
+            })
+            toast.success("Register Successfully")
+        } catch (err) {
+            toast.error(getError(err))
+        }
     }
-
 
     const addToCartHandler = async () => {
 
@@ -88,7 +99,7 @@ const ProductScreen = () => {
         : ( 
             <div> 
                 <Row>
-                   {/*<Col md={6}><img className="img-small" src={ product.image } alt= { product.name }></img></Col>*/}
+                   <Col md={6}><img className="img-small" src={ product.image } alt= { product.name }></img></Col>
                     <Col md={6}>
                         <ListGroup variant="flush">
                             <ListGroup.Item>
@@ -107,7 +118,7 @@ const ProductScreen = () => {
                         </Card>
                     </Col>
                     {isAlreadyRegistered.length > 0 ? 
-                            <Button >Add Family Member</Button>
+                            <Link to="addFamilyMember"> Add Family Member</Link>
                         :   <Button onClick={RegisterMe}>Register Me</Button>
                     }
                 </Row>
