@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Rating from './Rating'
 import { Store } from '../Store';
+import { getUserInfo } from '../utils';
 
 const Product = (props) => {
     const { product } = props;
@@ -30,21 +31,38 @@ const Product = (props) => {
         ctxDispatch({type: 'CART_ADD_ITEM', payload: {...item, quantity}});
     };
 
+    const userInfo = getUserInfo();
+console.log(userInfo)
     return (
         <Card key={product.slug}>
-            <Link to={`/product/${product.slug}`}>
-                <img src={product.image} className="card-img-top" alt={product.name} />
-            </Link>
+
+{userInfo && userInfo !== null ? (
+                    <Link to={`/product/${product.slug}`}>
+                    
+                        <img src={product.image} className="card-img-top" alt={product.name} />
+                    </Link>
+                    ) : (
+                        <Link to={`/signin`}>
+                        <img src={product.image} className="card-img-top" alt={product.name} />
+                    </Link>
+                    )}
             <Card.Body>
-                <Link to={`/product/${product.slug}`}>
+            {userInfo && userInfo !== null ? (
+                    <Link to={`/product/${product.slug}`}>
                     <Card.Title>{product.name}</Card.Title>
-                </Link>
-                <Rating rating={product.rating} numReviews={product.numReviews} />
+                    </Link>
+                    ) : (
+                    <Link to={`/signin`}>
+                    <Card.Title>{product.name}</Card.Title>
+                    </Link>
+                    )}
+    {/*            <Rating rating={product.rating} numReviews={product.numReviews} />
                 <Card.Text>${product.price}</Card.Text>
                 {product.countInStock === 0
                     ? <Button variant='light' disabled>Out of Stock</Button>
                     : <Button onClick={() => addToCartHandler(product)}>Add to cart</Button>
                 }
+            */}
             </Card.Body>
         </Card>
     )

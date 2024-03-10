@@ -18,8 +18,12 @@ import SignupScreen from './screens/SignupScreen';
 function App() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const { cart } = state;
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   
+  console.log(userInfo)
+
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT'});
     localStorage.removeItem('userInfo');
@@ -36,13 +40,14 @@ function App() {
             <Navbar.Brand>DivineGrace!</Navbar.Brand>
             </LinkContainer>
             <Nav className="me-auto">
-              <Link to="/cart" className="nav-link">Cart
+         {/*     <Link to="/cart" className="nav-link">Cart
                 { cart.cartItems.length > 0 && 
                     <Badge pill bg="danger">{cart.cartItems.reduce(
                         (a, c) => a + c.quantity, 0
                       )}
                     </Badge>}
               </Link>
+                    */}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                   <LinkContainer to="/profile">

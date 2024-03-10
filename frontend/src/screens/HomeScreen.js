@@ -9,6 +9,7 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { getUserInfo } from '../utils';
 
 const reducer = (state, action) => {
   switch(action.type) {
@@ -30,6 +31,8 @@ const HomeScreen = () => {
     products: [], loading: true, error: ''
   })
   //const [products, setProducts] = useState([]);
+
+  const userInfo = getUserInfo();
 
   useEffect(() => {
     const fetchData = async () => {

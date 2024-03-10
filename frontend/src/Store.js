@@ -44,6 +44,11 @@ function reducer(state, action){
                 ...state,
                 userInfo: null
             }
+        case 'ADD_FAMILY':
+            return {
+                ...state,
+                familyMember: action.payload
+            }
         default:
             return state;
     }

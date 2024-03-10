@@ -24,7 +24,7 @@ const data = {
 
     products: [
         {
-            name: 'Residential Retreat',
+            name: 'Register for Miami Residential Retreat',
             slug: 'residential-retreat',
             category: 'Retreats',
             image: '/images/divinemercy.jpg',
@@ -33,7 +33,7 @@ const data = {
             brand: 'USA',
             rating: 4.5,
             numReviews: 10,
-            description: 'Miami Residential Retreat'
+            description: 'Register for Miami Residential Retreat'
         },
         {
             name: 'Michigan Retreat',
