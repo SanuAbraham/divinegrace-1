@@ -31,18 +31,18 @@ familyRouter.post('/familyMember', async (req, res) => {
   });
 
   // Get all family members for a specific user
-familyRouter.get('/familyMember/:userId', async (req, res) => {
+familyRouter.get('/familyMember/:retreatRegistrationId', async (req, res) => {
     try {
-      const userId = req.params.userId;
+      const retreatRegistrationId = req.params.retreatRegistrationId;
   
       // Check if the user exists
-      const user = await User.findById(userId);
-      if (!user) {
+      const retreatRegistration = await RetreatRegistration.findById(retreatRegistrationId);
+      if (!retreatRegistration) {
         return res.status(404).json({ error: 'User not found' });
       }
   
       // Retrieve family members associated with the user
-      const familyMembers = await Family.find({ user: userId });
+      const familyMembers = await Family.find({ retreatRegistration: retreatRegistrationId });
       res.json(familyMembers);
     } catch (error) {
       res.status(500).json({ error: error.message });

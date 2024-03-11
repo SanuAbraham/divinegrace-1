@@ -11,7 +11,6 @@ retreatRegistrationRouter.post('/retreatRegistration', async (req, res) => {
   try {
     const { userId, ...retreatRegistrationData } = req.body;
     const user = await User.findById(userId);
-    res.json(user);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
